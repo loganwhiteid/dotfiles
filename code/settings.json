@@ -1,0 +1,51 @@
+// WINDOWS: %APPDATA%\Code\User\Settings.json
+
+{
+    "php.validate.executablePath": "C:/xampp/php/php.exe",
+    "python.pythonPath": "C:\\Users\\logan\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe",
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.colorTheme": "Outrun Electric",
+    "git.autofetch": true,
+    "python.languageServer": "Default",
+    "files.associations": {
+        "*.cps": "javascript"
+    },
+    "security.workspace.trust.untrustedFiles": "open",
+    "editor.renderControlCharacters": true,
+    "mssql.connections": [
+        {
+            "server": "{{put-server-name-here}}",
+            "database": "{{put-database-name-here}}",
+            "user": "{{put-username-here}}",
+            "password": ""
+        }
+    ],
+    "go.toolsManagement.autoUpdate": true,
+    "editor.inlayHints.enabled": "offUnlessPressed",
+    
+    //VIM THINGS
+    "vim.smartRelativeLine": true,
+    "vim.hlsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.commandLineModeKeyBindings": [
+    
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["K"],
+            "commands": ["editor.action.showHover"]
+        },
+        {
+            "before": ["<C-w>"],
+            "commands": ["editor.action.save"]
+        }
+    ],
+    "vim.insertModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<C-j>"],
+            "after": ["<Esc>"]
+        }
+    ]
+}
