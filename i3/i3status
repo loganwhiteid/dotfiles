@@ -1,0 +1,54 @@
+# ~/.config/i3status/config
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
+general {
+        colors = true
+        interval = 2
+}
+
+order += "wireless _first_"
+#order += "battery all"
+order += "cpu_usage"
+order += "memory"
+order += "disk /"
+
+wireless _first_ {
+        format_up = "(%essid) %ip"
+        format_down = "W: down"
+}
+
+ethernet _first_ {
+        format_up = "E: %ip (%speed)"
+        format_down = "E: down"
+}
+
+battery all {
+        format = "%status %percentage"
+	status_chr = "⚡"
+	status_bat = "🔋"
+	status_full = ""
+	low_threshold = 15
+}
+
+disk "/" {
+        format = "%avail"
+}
+
+load {
+        format = "%1min"
+}
+cpu_usage {
+	format = "%usage"
+}
+memory {
+        format = "%used"
+        threshold_degraded = "1G"
+        format_degraded = "MEMORY < %available"
+}
+
