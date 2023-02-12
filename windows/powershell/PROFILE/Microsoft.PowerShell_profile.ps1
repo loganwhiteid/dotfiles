@@ -1,7 +1,5 @@
 ﻿## Powershell Profile
 
-
-# list directory after CD'ing to it
 function cl {cd $args[0]; ls}
 
 function tail ($file) {
@@ -19,3 +17,8 @@ function repos {
     }
     cl $loc
 }
+
+# GIT things
+function ga {git add $args}
+function gaa {git add --all}
+function gs {git status}
