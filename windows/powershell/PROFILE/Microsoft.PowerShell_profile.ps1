@@ -2,6 +2,8 @@
 
 function cl {cd $args[0]; ls}
 
+function touch {"" | Out-File $args[0]}
+
 function tail ($file) {
 Get-Content $file -Wait
 }
