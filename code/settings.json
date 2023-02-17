@@ -1,51 +1,59 @@
-// WINDOWS: %APPDATA%\Code\User\Settings.json
-
 {
-    "php.validate.executablePath": "C:/xampp/php/php.exe",
-    "python.pythonPath": "C:\\Users\\logan\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe",
-    "editor.suggestSelection": "first",
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    "workbench.startupEditor": "newUntitledFile",
-    "workbench.colorTheme": "Outrun Electric",
-    "git.autofetch": true,
-    "python.languageServer": "Default",
-    "files.associations": {
-        "*.cps": "javascript"
-    },
-    "security.workspace.trust.untrustedFiles": "open",
-    "editor.renderControlCharacters": true,
-    "mssql.connections": [
-        {
-            "server": "{{put-server-name-here}}",
-            "database": "{{put-database-name-here}}",
-            "user": "{{put-username-here}}",
-            "password": ""
-        }
-    ],
-    "go.toolsManagement.autoUpdate": true,
+    "workbench.startupEditor": "none",
+    "editor.fontVariations": false,
+    "editor.fontFamily": "'hack nfm',monospace,'Cascadia Code'",
+    "editor.tabSize": 2,
     "editor.inlayHints.enabled": "offUnlessPressed",
-    
+    "catppuccin.boldKeywords": false,
+    "catppuccin.italicKeywords": false,
+    "catppuccin.italicComments": true,
+    "terminal.integrated.gpuAcceleration": "off",
+    "workbench.colorTheme": "Catppuccin Macchiato",
+    "workbench.iconTheme": "material-icon-theme",
+
+    ///// --------------------
     //VIM THINGS
-    "vim.smartRelativeLine": true,
-    "vim.hlsearch": true,
+    "vim.easymotion": true,
+    "vim.incsearch": true,
     "vim.useSystemClipboard": true,
-    "vim.commandLineModeKeyBindings": [
+    "vim.useCtrlKeys": true,
+    "vim.leader": "<space>",
     
-    ],
+    //NORMAL
     "vim.normalModeKeyBindingsNonRecursive": [
         {
             "before": ["K"],
             "commands": ["editor.action.showHover"]
-        },
-        {
-            "before": ["<C-w>"],
-            "commands": ["editor.action.save"]
         }
     ],
-    "vim.insertModeKeyBindingsNonRecursive": [
+
+    //INSERT
+    "vim.insertModeKeyBindings": [
         {
             "before": ["<C-j>"],
             "after": ["<Esc>"]
         }
-    ]
+    ],
+
+    //VISUAL
+    "vim.visualModeKeyBindings": [
+        {
+            "before":["<C-j>"],
+            "after":["<Esc>"]
+        }
+    ],
+
+    "vim.handleKeys": {
+        "<C-d>": true,
+        "<C-s>": false,
+        "<C-z>": false,
+        "<C-w>": false,
+        "<C-f>": false,   //VS search
+        "<C-k>": false,   //VS command leader
+        "<C-h>": true,    //VS search/replace
+    }
+
+    /////// ------------------
+
+
 }
