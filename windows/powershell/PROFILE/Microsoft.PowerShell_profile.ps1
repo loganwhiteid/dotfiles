@@ -19,6 +19,11 @@ function repos {
     }
     cl $loc
 }
+function scripts {cl "D:\Scripts"}
+
+function downloads {cl "~\Downloads"}
+
+function ifconfig {ipconfig $args}
 
 # GIT things
 function ga {git add $args}
