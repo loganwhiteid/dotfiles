@@ -8,3 +8,7 @@ function cl() {
     # use your preferred ls command
         ls -F --color=auto
 }
+function ga() {
+    git add $1
+}
+
