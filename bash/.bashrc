@@ -111,7 +111,6 @@ if [ -e $HOME/.bash_functions ]; then
 fi
 
 
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -122,5 +121,7 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+export PATH="$PATH:/opt/nvim-linux64/bin"
 . "$HOME/.cargo/env"
 source ~/.bash_completion/alacritty

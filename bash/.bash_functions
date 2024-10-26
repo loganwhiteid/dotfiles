@@ -11,4 +11,11 @@ function cl() {
 function ga() {
     git add $1
 }
-
+function repos() {
+    if [[ $1 == '' ]]
+    then
+        cl ~/repos
+    else
+        cl ~/repos/$1
+    fi
+} 
