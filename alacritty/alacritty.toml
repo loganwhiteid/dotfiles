@@ -11,7 +11,7 @@ decorations_theme_variant = "Dark" # "Dark"
 
 [font]
 
-normal = {family = "CaskaydiaCove Nerd Font", style = "SemiBold"}
+normal = {family = "CaskaydiaCove Nerd Font", style = "Bold"}
 bold = {family = "CaskaydiaCove Nerd Font", style = "Bold"}
 italic = {family = "CaskaydiaCove Nerd Font", style = "Italic"}
 bold_italic = {family = "CaskaydiaCove Nerd Font", style = "Bold Italic"}
