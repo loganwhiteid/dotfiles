@@ -63,4 +63,5 @@ color = '#db4b4b'
 [keyboard]
 bindings = [
 	{key = "v", mods = "Control", action = "Paste"},
+	{key = "Back", mods = "Control", chars = "\u0017"},
 ]
