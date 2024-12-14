@@ -96,8 +96,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
 --  See `:help hlsearch`
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "clear highlights" })
 
-vim.keymap.set("n", "<leader>w", "<cmd>w<cr>")
-vim.keymap.set({ "i", "v" }, "<C-j>", "<Esc>")
+vim.keymap.set("n", "<leader>w", "<cmd>w<cr>", { desc = "Write the buffer" })
+vim.keymap.set({ "i", "v" }, "<C-j>", "<Esc>", { desc = "Leave mode" })
 
 vim.keymap.set("n", "<C-Down>", "<cmd>m +1<CR>", { desc = "move line down" })
 vim.keymap.set("n", "<C-Up>", "<cmd>m -2<CR>", { desc = "move line up" })
@@ -105,8 +105,8 @@ vim.keymap.set("v", "<C-Down>", ":m '>+1<CR>gv=gv", { desc = "move lines down" }
 vim.keymap.set("v", "<C-Up>", ":m '<-2<CR>gv=gv", { desc = "move lines up" })
 
 -- Diagnostic keymaps
-vim.keymap.set("n", "<leader>q", "<cmd>q<CR>")
-vim.keymap.set("n", "<leader>Q", "<cmd>q!<CR>")
+vim.keymap.set("n", "<leader>q", "<cmd>q<CR>", { desc = "Quit NVIM" })
+vim.keymap.set("n", "<leader>Q", "<cmd>q!<CR>", { desc = "Force Quit NVIM" })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -332,7 +332,7 @@ require("lazy").setup({
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
         -- },
-        -- pickers = {}
+        pickers = {},
         extensions = {
           ["ui-select"] = {
             require("telescope.themes").get_dropdown(),
@@ -360,10 +360,16 @@ require("lazy").setup({
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set("n", "<leader>/", function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
-        builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-          winblend = 10,
+        require("telescope.builtin").current_buffer_fuzzy_find({
+          layout_strategy = "center",
+          layout_config = {
+            width = 0.5,
+            height = 0.4,
+          },
           previewer = false,
-        }))
+          sorting_strategy = "ascending",
+          color_devicons = true,
+        })
       end, { desc = "[/] Fuzzily search in current buffer" })
 
       -- It's also possible to pass additional configuration options.
@@ -413,8 +419,17 @@ require("lazy").setup({
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { "j-hui/fidget.nvim", opts = {} },
-
+      {
+        "j-hui/fidget.nvim",
+        -- tag = "v1.0.0",
+        opts = {
+          window = {
+            blend = 100,
+            -- border = "rounded",
+            zindex = 1,
+          },
+        },
+      },
       -- Allows extra capabilities provided by nvim-cmp
       "hrsh7th/cmp-nvim-lsp",
     },
@@ -805,6 +820,10 @@ require("lazy").setup({
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.cmd.colorscheme("tokyonight-night")
+      vim.cmd([[
+        highlight CursorLine guibg=#1a1b26
+        set cursorline
+      ]])
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi("Comment gui=none")
