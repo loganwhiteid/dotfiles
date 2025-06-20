@@ -1,0 +1,36 @@
+return {
+  -- {
+  --   "mrcjkb/rustaceanvim",
+  --   version = "^5", -- Recommended
+  --   lazy = false,
+  --   tools = {
+  --     hover_actions = {
+  --       border = "rounded",
+  --       replace_builtin_hover = false,
+  --     },
+  --     float_win_config = {
+  --       border = "rounded",
+  --     },
+  --   },
+  --   on_attach = function(client, bufnr)
+  --     vim.cmd.RustLsp("renderDiagnostic")
+  --     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+  --     vim.lsp.handlers["textDocument/signatureHelp"] =
+  --       vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+  --   end,
+  --   -- server = {
+  --   --   cmd = function()
+  --   --     local mason_registry = require("mason-registry")
+  --   --     if mason_registry.is_installed("rust-analyzer") then
+  --   --       -- This may need to be tweaked depending on the operating system.
+  --   --       local ra = mason_registry.get_package("rust-analyzer")
+  --   --       local ra_filename = ra:get_receipt():get().links.bin["rust-analyzer"]
+  --   --       return { ("%s/%s"):format(ra:get_install_path(), ra_filename or "rust-analyzer") }
+  --   --     else
+  --   --       -- global installation
+  --   --       return { "rust-analyzer" }
+  --   --     end
+  --   --   end,
+  --   -- },
+  -- },
+}

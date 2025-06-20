@@ -1,11 +1,13 @@
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "single" })
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+
+vim.g.copilot_enabled = false
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
@@ -105,6 +107,19 @@ vim.keymap.set("v", "<C-Down>", ":m '>+1<CR>gv=gv", { desc = "move lines down" }
 vim.keymap.set("v", "<C-Up>", ":m '<-2<CR>gv=gv", { desc = "move lines up" })
 
 -- Diagnostic keymaps
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  underline = true,
+  severity_sort = true,
+  float = {
+    border = "rounded",
+    source = true,
+    -- style = "minimal",
+  },
+})
+
 vim.keymap.set("n", "<leader>q", "<cmd>q<CR>", { desc = "Quit NVIM" })
 vim.keymap.set("n", "<leader>Q", "<cmd>q!<CR>", { desc = "Force Quit NVIM" })
 
@@ -173,6 +188,7 @@ require("lazy").setup({
   ui = {
     border = "rounded",
   },
+
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   "tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 
@@ -411,11 +427,19 @@ require("lazy").setup({
   {
     -- Main LSP Configuration
     "neovim/nvim-lspconfig",
+    -- opts = {
+    --   setup = {
+    --     rust_analyzer = function()
+    --       return true
+    --     end,
+    --   },
+    -- },
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       { "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
       "williamboman/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
+      "nvim-java/nvim-java",
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -625,6 +649,7 @@ require("lazy").setup({
       require("mason-lspconfig").setup({
         handlers = {
           function(server_name)
+            -- if server_name ~= "rust_analyzer" then
             local server = servers[server_name] or {}
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling
@@ -632,6 +657,12 @@ require("lazy").setup({
             server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
             require("lspconfig")[server_name].setup(server)
           end,
+          jdtls = function()
+            require("java").setup({})
+
+            require("lspconfig").jdtls.setup({})
+          end,
+          -- end,
         },
       })
     end,
@@ -948,6 +979,8 @@ require("lazy").setup({
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   { import = "custom.plugins" },
+  -- require("_copilot").disable(),
+  -- { import = "custom.configs" },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
