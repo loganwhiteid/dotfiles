@@ -123,6 +123,8 @@ vim.diagnostic.config({
 vim.keymap.set("n", "<leader>q", "<cmd>q<CR>", { desc = "Quit NVIM" })
 vim.keymap.set("n", "<leader>Q", "<cmd>q!<CR>", { desc = "Force Quit NVIM" })
 
+vim.keymap.set("n", "<leader>tc", "<cmd>ChatToggle<CR>")
+
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
