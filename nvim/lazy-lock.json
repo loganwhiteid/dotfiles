@@ -1,7 +1,7 @@
 {
   "LuaSnip": { "branch": "master", "commit": "c9b9a22904c97d0eb69ccb9bab76037838326817" },
   "Unreal.nvim": { "branch": "main", "commit": "cdacf7ae1138bb7fcb2002b15edb6ba5fadf82d8" },
-  "chat.nvim": { "branch": "main", "commit": "b515012d1da30b5174fa77979e258f275a663606" },
+  "catppuccin": { "branch": "main", "commit": "da33755d00e09bff2473978910168ff9ea5dc453" },
   "cmp-nvim-lsp": { "branch": "main", "commit": "99290b3ec1322070bcfb9e846450a46f6efa50f0" },
   "cmp-path": { "branch": "main", "commit": "91ff86cd9c29299a64f968ebb45846c485725f23" },
   "cmp_luasnip": { "branch": "master", "commit": "98d9cb5c2c38532bd9bdb481067b20fea8f32e90" },

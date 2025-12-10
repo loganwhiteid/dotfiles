@@ -1,5 +1,12 @@
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+-- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+local border = "rounded"
+local orig_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or border
+  return orig_open_floating_preview(contents, syntax, opts, ...)
+end
 
 -- Set <space> as the leader key
 -- See `:help mapleader`
@@ -7,7 +14,7 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-vim.g.copilot_enabled = false
+vim.opt.tabstop = 4
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
@@ -91,6 +98,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.wo.foldlevel = 99
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -105,6 +116,8 @@ vim.keymap.set("n", "<C-Down>", "<cmd>m +1<CR>", { desc = "move line down" })
 vim.keymap.set("n", "<C-Up>", "<cmd>m -2<CR>", { desc = "move line up" })
 vim.keymap.set("v", "<C-Down>", ":m '>+1<CR>gv=gv", { desc = "move lines down" })
 vim.keymap.set("v", "<C-Up>", ":m '<-2<CR>gv=gv", { desc = "move lines up" })
+
+vim.keymap.set("n", "<leader>b", ":b#<CR>", { desc = "return to previous buffer" })
 
 -- Diagnostic keymaps
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
@@ -449,10 +462,12 @@ require("lazy").setup({
         "j-hui/fidget.nvim",
         -- tag = "v1.0.0",
         opts = {
-          window = {
-            blend = 100,
-            -- border = "rounded",
-            zindex = 1,
+          notification = {
+            window = {
+              winblend = 0,
+              border = "rounded",
+              zindex = 1,
+            },
           },
         },
       },
@@ -824,6 +839,7 @@ require("lazy").setup({
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" },
+          { name = "llm_config" },
         },
         window = {
           completion = cmp.config.window.bordered(),
@@ -846,13 +862,41 @@ require("lazy").setup({
         floats = "transparent",
       },
     },
-    -- "catppuccin/nvim",
     priority = 1000, -- Make sure to load this before all the other start plugins.
+    -- init = function()
+    --   -- Load the colorscheme here.
+    --   -- Like many other themes, this one has different styles, and you could load
+    --   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+    --   vim.cmd.colorscheme("tokyonight-night")
+    --   vim.cmd([[
+    --     highlight CursorLine guibg=#1a1b26
+    --     set cursorline
+    --   ]])
+    --
+    --   -- You can configure highlights by doing something like:
+    --   vim.cmd.hi("Comment gui=none")
+    -- end,
+  },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    opts = {
+      flavour = "mocha",
+      auto_integrations = true,
+      integrations = {
+        fidget = true,
+        mason = true,
+        cmp = true,
+        treesitter_context = true,
+      },
+      transparent_background = true,
+      float = {
+        transparent = true,
+      },
+    },
     init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme("tokyonight-night")
+      vim.cmd.colorscheme("catppuccin")
       vim.cmd([[
         highlight CursorLine guibg=#1a1b26
         set cursorline
@@ -863,12 +907,25 @@ require("lazy").setup({
     end,
   },
 
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("lualine").setup({
+        options = {
+          theme = "catppuccin",
+          component_separators = { left = "", right = "" },
+          section_separators = { left = "", right = "" },
+        },
+      })
+    end,
+  },
   -- Highlight todo, notes, etc in comments
   {
     "folke/todo-comments.nvim",
     event = "VimEnter",
     dependencies = { "nvim-lua/plenary.nvim" },
-    opts = { signs = false },
+    opts = { signs = true },
   },
 
   { -- Collection of various small independent plugins/modules
@@ -906,17 +963,6 @@ require("lazy").setup({
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
-    end,
-  },
-  {
-    "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("lualine").setup({
-        options = {
-          theme = "palenight",
-        },
-      })
     end,
   },
   { -- Highlight, edit, and navigate code
