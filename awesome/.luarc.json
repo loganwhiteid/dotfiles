@@ -1,7 +1,0 @@
-{
-  "Lua.diagnostics.globals": ["awesome", "client", "root", "screen", "tag", "mouse", "widget"],
-  "Lua.workspace.library": [
-        "/usr/share/awesome/lib",
-        "/home/dev/.config/awesome"
-    ],
-}
